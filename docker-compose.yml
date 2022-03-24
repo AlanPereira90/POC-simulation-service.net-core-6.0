@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  api:
+    image: simulationservice
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 5050:5050
+  dynamodb:
+    container_name: dynamodb
+    image: amazon/dynamodb-local:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - dynamodb:/home/dynamodblocal/dynamodb/
+    command:
+      [
+        "-jar",
+        "DynamoDBLocal.jar",
+        "-sharedDb",
+        "-dbPath",
+        "/home/dynamodblocal/dynamodb"
+      ]
+volumes:
+  dynamodb:
