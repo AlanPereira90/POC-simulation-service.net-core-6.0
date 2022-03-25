@@ -2,7 +2,7 @@ namespace simulation_service.src.application.interfaces;
 
 public interface IController
 {
-  public static string Route;
-  public static string[] Methods;
-  public static Delegate Handler;
+  static string Route;
+  static string[] Methods;
+  static Delegate Handler;
 }

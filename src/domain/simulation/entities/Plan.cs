@@ -2,7 +2,14 @@ namespace simulation_service.src.domain.simulation.entities;
 
 public class Plan
 {
-  public int Installment { get; set; }
-  public Percentages percentages { get; set; }
-  public Amounts amounts { get; set; }
+  public Plan(int installment, Percentages percentages, Amounts amounts)
+  {
+    this.Installment = installment;
+    this.percentages = percentages;
+    this.amounts = amounts;
+
+  }
+  public int Installment { get; private set; }
+  public Percentages percentages { get; private set; }
+  public Amounts amounts { get; private set; }
 }
