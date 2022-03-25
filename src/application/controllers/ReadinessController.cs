@@ -1,6 +1,8 @@
-namespace SimulationService.Application.Controllers;
+using simulation_service.src.application.interfaces;
 
-public class ReadinessController
+namespace simulation_service.src.application.controllers;
+
+public class ReadinessController : IController
 {
   public static string Route => "/readiness";
   public static string[] Methods => new string[] { HttpMethod.Get.ToString() };
