@@ -1,7 +1,6 @@
 using Xunit;
 using Moq;
 using System;
-using Faker;
 
 using src.domain.simulation.entities;
 using src.domain.simulation.repositories;
