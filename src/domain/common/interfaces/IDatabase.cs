@@ -1,4 +1,4 @@
-namespace simulation_service.src.domain.infrastructure.interfaces;
+namespace src.domain.infrastructure.interfaces;
 
 public interface IDatabase<T>
 {

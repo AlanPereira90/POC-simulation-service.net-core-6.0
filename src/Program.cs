@@ -1,4 +1,4 @@
-using simulation_service.src.application.controllers;
+using src.application.controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();

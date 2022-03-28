@@ -1,10 +1,10 @@
-using simulation_service.src.domain.simulation.entities;
+using src.domain.simulation.dtos;
 
-namespace simulation_service.src.domain.simulation.interfaces;
+namespace src.domain.simulation.interfaces;
 
 public interface ISimulationService
 {
-  string CreateSimulation(Simulation simulation); //TODO: Create DTO to avoid that constructors need to know entities
+  string CreateSimulation(SimulationDTO simulation);
   string CancelSimulation(Guid id, string UserId);
   string ProposeSimulation(Guid id, string UserId);
   string FinishSimulation(Guid id, string UserId);

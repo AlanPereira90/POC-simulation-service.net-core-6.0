@@ -1,4 +1,4 @@
-namespace simulation_service.src.application.interfaces;
+namespace src.application.interfaces;
 
 public interface IController
 {

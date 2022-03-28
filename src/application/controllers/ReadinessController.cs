@@ -1,6 +1,6 @@
-using simulation_service.src.application.interfaces;
+using src.application.interfaces;
 
-namespace simulation_service.src.application.controllers;
+namespace src.application.controllers;
 
 public class ReadinessController : IController
 {

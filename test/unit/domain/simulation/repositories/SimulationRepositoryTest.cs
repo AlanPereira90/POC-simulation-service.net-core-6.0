@@ -3,9 +3,9 @@ using Moq;
 using System;
 using Faker;
 
-using simulation_service.src.domain.simulation.entities;
-using simulation_service.src.domain.simulation.repositories;
-using simulation_service.src.domain.infrastructure.interfaces;
+using src.domain.simulation.entities;
+using src.domain.simulation.repositories;
+using src.domain.infrastructure.interfaces;
 
 using test.unit.domain.simulation.helpers;
 

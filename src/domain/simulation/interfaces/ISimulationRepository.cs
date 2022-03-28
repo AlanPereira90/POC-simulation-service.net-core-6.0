@@ -1,6 +1,6 @@
-using simulation_service.src.domain.simulation.entities;
+using src.domain.simulation.entities;
 
-namespace simulation_service.src.domain.simulation.interfaces;
+namespace src.domain.simulation.interfaces;
 
 public interface ISimulationRepository
 {

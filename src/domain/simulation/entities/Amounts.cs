@@ -1,4 +1,4 @@
-namespace simulation_service.src.domain.simulation.entities;
+namespace src.domain.simulation.entities;
 
 public class Amounts
 {

@@ -1,21 +1,17 @@
 using Faker;
 
-using simulation_service.src.domain.simulation.entities;
-using simulation_service.src.domain.simulation.enums;
+using src.domain.simulation.entities;
+using src.domain.simulation.enums;
 
 namespace test.unit.domain.simulation.helpers;
 
 public static class SimulationBuilder
 {
-  //TODO: Change to {} instead () to avoid constructors
   public static Simulation build()
   {
     return new Simulation(
-        id: System.Guid.NewGuid(),
         userId: StringFaker.AlphaNumeric(10),
-        status: SimulationStatus.CREATED,
         amount: NumberFaker.Number(1, 100),
-        cancellationReason: "",
         plan: new Plan(
           installment: NumberFaker.Number(1, 12),
           percentages: new Percentages(
@@ -38,9 +34,7 @@ public static class SimulationBuilder
             hiring: NumberFaker.Number(1, 100),
             owed: NumberFaker.Number(1, 100)
           )
-        ),
-        createdAt: DateTimeFaker.DateTime(),
-        updatedAt: DateTimeFaker.DateTime()
+        )
     );
   }
 }

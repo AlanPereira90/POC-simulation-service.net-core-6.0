@@ -1,4 +1,4 @@
-namespace simulation_service.src.domain.simulation.enums;
+namespace src.domain.simulation.enums;
 
 public enum SimulationStatus
 {

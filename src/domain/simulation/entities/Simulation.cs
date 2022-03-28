@@ -1,24 +1,23 @@
-using simulation_service.src.domain.simulation.enums;
+using src.domain.simulation.enums;
 
-namespace simulation_service.src.domain.simulation.entities;
+namespace src.domain.simulation.entities;
 
 public class Simulation
 {
 
-  public Simulation(Guid id, string userId, SimulationStatus status, double amount, string cancellationReason, Plan plan, DateTime createdAt, DateTime updatedAt)
+  public Simulation(string userId, double amount, Plan plan)
   {
-    this.Id = id;
+    this.Id = Guid.NewGuid();
     this.UserId = userId;
-    this.status = status;
+    this.status = SimulationStatus.CREATED;
     this.Amount = amount;
-    this.CancellationReason = cancellationReason;
+    this.CancellationReason = "";
     this.plan = plan;
-    this.CreatedAt = createdAt;
-    this.UpdatedAt = updatedAt;
-
+    this.CreatedAt = DateTime.Now;
+    this.UpdatedAt = DateTime.Now;
   }
 
-  public Guid Id { get; private set; }
+  public Guid Id { get; }
   public string UserId { get; private set; }
   public SimulationStatus status { get; private set; }
   public double Amount { get; private set; }

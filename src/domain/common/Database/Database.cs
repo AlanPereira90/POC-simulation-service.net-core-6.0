@@ -1,6 +1,6 @@
-using simulation_service.src.domain.infrastructure.interfaces;
+using src.domain.infrastructure.interfaces;
 
-namespace simulation_service.src.domain.infrastructure.Database;
+namespace src.domain.infrastructure.Database;
 
 public class Database<T> : IDatabase<T>
 {
