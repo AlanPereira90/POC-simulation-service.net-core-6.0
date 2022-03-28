@@ -1,7 +1,7 @@
 using Faker;
 
 using src.domain.simulation.entities;
-using src.domain.simulation.enums;
+using src.domain.simulation.types;
 
 namespace test.unit.domain.simulation.helpers;
 

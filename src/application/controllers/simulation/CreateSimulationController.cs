@@ -1,56 +1,22 @@
-using src.application.controllers.simulation.requests;
-using src.domain.simulation.interfaces;
-using src.domain.simulation.dtos;
-using src.domain.simulation.types;
+using Microsoft.AspNetCore.Mvc;
 
 namespace src.application.controllers;
 
-public class CreateSimulationController
+[ApiController]
+[Route("[controller]")]
+public class CreateSimulationController : ControllerBase
 {
-  private readonly ISimulationService _simulationService;
+  private readonly ILogger<ReadinessController> _logger;
 
-  public CreateSimulationController(ISimulationService simulationService)
+  public CreateSimulationController(ILogger<ReadinessController> logger)
   {
-    this._simulationService = simulationService;
+    _logger = logger;
   }
 
-  public static string Route => "/simulations";
-  public static string[] Methods => new string[] { HttpMethod.Post.ToString() };
-  public static Delegate Handle => Action;
-
-  public static async Task<IResult> Action(CresteSimulationRequest request, HttpContext http)
+  [HttpPost(Name = "/simulations")]
+  public IActionResult CreateSimulation()
   {
-    var id = _simulationService.Create(
-        new SimulationDTO
-        {
-          UserId = http.Request.Headers.TryGetValue("x-user-id", out var userId) ? userId : "",
-          Amount = request.Amount,
-          Plan = new Plan(
-              request.Plan.Installments,
-              new Percentages(
-                  new Costs(
-                    request.Plan.Rate.TotalEffectiveCost.Monthly,
-                    request.Plan.Rate.TotalEffectiveCost.Annual
-                  ),
-                  new Costs(
-                    request.Plan.Rate.Interest.Monthly,
-                    request.Plan.Rate.Interest.Annual
-                  ),
-                  request.Plan.Rate.Iof
-              ),
-            new Amounts(
-                request.Plan.Value.BankSlip,
-                request.Plan.Value.Iof,
-                request.Plan.Value.Installment,
-                request.Plan.Value.Insurance,
-                request.Plan.Value.CreditOpeningFee,
-                request.Plan.Value.Hiring,
-                request.Plan.Value.Owed
-            )
-          )
-        }
-    );
-
-    return Results.Ok(new { id });
+    return Accepted();
   }
+
 }

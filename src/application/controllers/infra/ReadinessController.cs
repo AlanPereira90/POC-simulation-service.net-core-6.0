@@ -1,13 +1,22 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace src.application.controllers;
 
-public class ReadinessController
+[ApiController]
+[Route("[controller]")]
+public class ReadinessController : ControllerBase
 {
-  public static string Route => "/readiness";
-  public static string[] Methods => new string[] { HttpMethod.Get.ToString() };
-  public static Delegate Handle => Action;
 
-  public static async Task<IResult> Action(object request, HttpContext http)
+  private readonly ILogger<ReadinessController> _logger;
+
+  public ReadinessController(ILogger<ReadinessController> logger)
   {
-    return Results.Ok(new { status = true });
+    _logger = logger;
+  }
+
+  [HttpGet(Name = "/readiness")]
+  public IActionResult Readiness()
+  {
+    return Ok();
   }
 }
