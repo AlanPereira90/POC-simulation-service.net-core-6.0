@@ -1,4 +1,4 @@
-namespace src.domain.simulation.entities
+namespace src.domain.simulation.types
 {
   public class Costs
   {

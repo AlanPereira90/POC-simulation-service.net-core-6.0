@@ -1,4 +1,5 @@
 using src.domain.simulation.enums;
+using src.domain.simulation.types;
 
 namespace src.domain.simulation.entities;
 
