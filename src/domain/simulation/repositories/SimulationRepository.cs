@@ -6,20 +6,20 @@ namespace src.domain.simulation.repositories;
 
 public class SimulationRepository : ISimulationRepository
 {
-  private readonly IDatabase<Simulation> _database;
+  private readonly IDatabase _database;
 
-  public SimulationRepository(IDatabase<Simulation> database)
+  public SimulationRepository(IDatabase database)
   {
     _database = database;
   }
 
   public Task<string> Persist(Simulation simulation)
   {
-    return _database.Persist(simulation.Id.ToString(), simulation.UserId, simulation);
+    return _database.Persist(simulation.Id.ToString(), simulation.UserId, simulation.ToData());
   }
 
-  public Task<Simulation> Find(Guid id, string UserId)
+  public async Task<Simulation> Find(Guid id, string UserId)
   {
-    return _database.Find(id.ToString(), UserId);
+    return Simulation.FromData(await _database.Find(id.ToString(), UserId));
   }
 }

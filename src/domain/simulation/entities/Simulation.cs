@@ -52,6 +52,30 @@ public class Simulation
     this.UpdatedAt = DateTime.Now;
   }
 
+  public Dictionary<string, object> ToData()
+  {
+    var data = new Dictionary<string, object>();
+    var properties = this.GetType().GetProperties();
+
+    foreach (var property in properties)
+    {
+      data.Add(property.Name, property.GetValue(this));
+    }
+    return data;
+  }
+
+  public static Simulation FromData(Dictionary<string, object> data)
+  {
+    Simulation simulation = Activator.CreateInstance<Simulation>();
+
+    foreach (var property in data)
+    {
+      simulation.GetType().GetProperty(property.Key).SetValue(simulation, property.Value);
+    }
+
+    return simulation;
+  }
+
   public Guid Id { get; }
   public string UserId { get; private set; }
   public SimulationStatus Status { get; private set; }

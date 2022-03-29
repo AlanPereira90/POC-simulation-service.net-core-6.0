@@ -1,7 +1,7 @@
 namespace src.domain.common.interfaces;
 
-public interface IDatabase<T>
+public interface IDatabase
 {
-  Task<string> Persist(string PK, string SK, T data);
-  Task<T> Find(string PK, string SK);
+  Task<string> Persist(string PK, string SK, Dictionary<string, object> data);
+  Task<Dictionary<string, object>> Find(string PK, string SK);
 }

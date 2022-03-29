@@ -2,38 +2,44 @@ using Amazon.DynamoDBv2;
 
 using src.domain.common.interfaces;
 using src.domain.infra;
-using Amazon.DynamoDBv2.Model;
 
 namespace src.domain.infrastructure.database;
 
-public class DatabaseService<T> : IDatabase<T>
+public class DatabaseService : IDatabase
 {
   private readonly IConfiguration _configuration;
+  private readonly DyanamoDB _dynamo;
   private readonly AmazonDynamoDBClient _connection;
   public DatabaseService(IConfiguration config, DyanamoDB dyanamoDB)
   {
     _configuration = config;
-    _connection = dyanamoDB.Connection;
+    _dynamo = dyanamoDB;
+    _connection = _dynamo.Connection;
   }
-  public async Task<string> Persist(string PK, string SK, T data)
+  public async Task<string> Persist(string PK, string SK, Dictionary<string, object> data)
   {
-    var teste = await _connection.PutItemAsync(
+    data.Add("PK", PK);
+    data.Add("SK", SK);
+
+    await _connection.PutItemAsync(
       tableName: _configuration["DynamoDB:TableName"],
-      new Dictionary<string, AttributeValue>()
+      DyanamoDBMapper.Marshall(data)
     );
     return PK;
   }
 
-  public async Task<T> Find(string PK, string SK)
+  public async Task<Dictionary<string, object>> Find(string PK, string SK)
   {
+    var key = DyanamoDBMapper.Marshall(new Dictionary<string, object>()
+    {
+      { "PK", PK },
+      { "SK", SK }
+    });
+
     var result = await _connection.GetItemAsync(
       tableName: _configuration["DynamoDB:TableName"],
-      key: new Dictionary<string, AttributeValue>()
-      {
-        { "PK", new AttributeValue { S = PK } },
-        { "SK", new AttributeValue { S = SK } }
-      }
+      key: key
     );
-    return default(T);
+    return DyanamoDBMapper.Unmarshall(result.Item);
   }
 }
