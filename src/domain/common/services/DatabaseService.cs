@@ -1,8 +1,8 @@
 using src.domain.infrastructure.interfaces;
 
-namespace src.domain.infrastructure.Database;
+namespace src.domain.infrastructure.database;
 
-public class Database<T> : IDatabase<T>
+public class DatabaseService<T> : IDatabase<T>
 {
   public string Persist(string PK, string SK, T data)
   {

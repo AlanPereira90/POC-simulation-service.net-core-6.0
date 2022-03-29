@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace src.application.controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/status")]
 public class ReadinessController : ControllerBase
 {
 
@@ -14,7 +14,7 @@ public class ReadinessController : ControllerBase
     _logger = logger;
   }
 
-  [HttpGet(Name = "/readiness")]
+  [HttpGet]
   public IActionResult Readiness()
   {
     return Ok();

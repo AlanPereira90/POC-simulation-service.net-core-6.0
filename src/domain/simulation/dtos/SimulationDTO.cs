@@ -34,36 +34,13 @@ public class SimulationDTO
     };
   }
 
-  public static SimulationDTO FromRequest(CresteSimulationRequest request, string UserId)
+  public static SimulationDTO FromApplication(CreateSimulationRequest request, string userId)
   {
     return new SimulationDTO
     {
-      UserId = UserId,
+      UserId = userId,
       Amount = request.Amount,
-      Plan = new Plan(
-        request.Plan.Installments,
-        new Percentages(
-            new Costs(
-              request.Plan.Rate.TotalEffectiveCost.Monthly,
-              request.Plan.Rate.TotalEffectiveCost.Annual
-            ),
-            new Costs(
-              request.Plan.Rate.Interest.Monthly,
-              request.Plan.Rate.Interest.Annual
-            ),
-            request.Plan.Rate.Iof
-        ),
-      new Amounts(
-          request.Plan.Value.BankSlip,
-          request.Plan.Value.Iof,
-          request.Plan.Value.Installment,
-          request.Plan.Value.Insurance,
-          request.Plan.Value.CreditOpeningFee,
-          request.Plan.Value.Hiring,
-          request.Plan.Value.Owed
-        )
-      )
-
+      Plan = request.Plan
     };
   }
 }
