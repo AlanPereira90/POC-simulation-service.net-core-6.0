@@ -4,6 +4,6 @@ namespace src.domain.simulation.interfaces;
 
 public interface ISimulationRepository
 {
-  String Persist(Simulation simulation);
-  Simulation Find(Guid id, string UserId);
+  Task<String> Persist(Simulation simulation);
+  Task<Simulation> Find(Guid id, string UserId);
 }

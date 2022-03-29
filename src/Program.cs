@@ -1,10 +1,11 @@
 using src.domain.simulation.interfaces;
-using src.domain.infrastructure.interfaces;
+using src.domain.common.interfaces;
 
 using src.domain.simulation.services;
 using src.domain.simulation.repositories;
 using src.domain.infrastructure.database;
 using src.domain.simulation.entities;
+using src.domain.infra;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ISimulationRepository, SimulationRepository>();
 builder.Services.AddScoped<ISimulationService, SimulationService>();
 builder.Services.AddScoped<IDatabase<Simulation>, DatabaseService<Simulation>>();
+builder.Services.AddSingleton<DyanamoDB>();
 
 var app = builder.Build();
 

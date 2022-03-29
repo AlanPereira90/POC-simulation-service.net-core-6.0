@@ -1,10 +1,11 @@
 using Xunit;
 using Moq;
 using System;
+using System.Threading.Tasks;
 
 using src.domain.simulation.entities;
 using src.domain.simulation.repositories;
-using src.domain.infrastructure.interfaces;
+using src.domain.common.interfaces;
 
 using test.unit.domain.simulation.helpers;
 
@@ -21,18 +22,18 @@ public class SimulationRepositoryTest
   }
 
   [Fact(DisplayName = "should persist and return a valid id")]
-  public void Persist()
+  public async void Persist()
   {
     Simulation simulation = SimulationBuilder.build();
     var expectedResult = Guid.NewGuid().ToString();
 
     _mockDatabase.Setup(r =>
       r.Persist(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Simulation>())
-    ).Returns(expectedResult);
+    ).Returns(Task.FromResult(expectedResult));
 
     SimulationRepository repository = new SimulationRepository(_mockDatabase.Object);
 
-    var result = repository.Persist(simulation);
+    var result = await repository.Persist(simulation);
 
     Assert.Equal(expectedResult, result);
     _mockDatabase.Verify(r =>
@@ -40,17 +41,17 @@ public class SimulationRepositoryTest
   }
 
   [Fact(DisplayName = "should call find method from database class")]
-  public void Find()
+  public async void Find()
   {
     Simulation simulation = SimulationBuilder.build();
 
     _mockDatabase.Setup(r =>
       r.Find(It.IsAny<string>(), It.IsAny<string>())
-    ).Returns(simulation);
+    ).Returns(Task.FromResult(simulation));
 
     SimulationRepository repository = new SimulationRepository(_mockDatabase.Object);
 
-    var result = repository.Find(simulation.Id, simulation.UserId);
+    var result = await repository.Find(simulation.Id, simulation.UserId);
 
     Assert.Equal(simulation, result);
     _mockDatabase.Verify(r =>

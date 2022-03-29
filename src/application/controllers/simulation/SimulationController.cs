@@ -19,57 +19,57 @@ public class SimulationController : ControllerBase
   }
 
   [HttpPost]
-  public IActionResult CreateSimulation(
+  public async Task<IActionResult> CreateSimulation(
     [FromBody] CreateSimulationRequest request,
     [FromHeader(Name = "x-user-id")] string userId
   )
   {
     var dto = SimulationDTO.FromApplication(request, userId);
-    var id = _simulationService.Create(dto);
+    var id = await _simulationService.Create(dto);
     return Accepted($"/simulations/{id}");
   }
 
   [HttpGet]
   [Route("{id}")]
-  public IActionResult GetSimulation(
+  public async Task<IActionResult> GetSimulation(
     [FromRoute] string id,
     [FromHeader(Name = "x-user-id")] string userId
   )
   {
-    var simulation = _simulationService.Retrieve(Guid.Parse(id), userId);
+    var simulation = await _simulationService.Retrieve(Guid.Parse(id), userId);
     return Ok(simulation);
   }
 
   [HttpPatch]
   [Route("{id}/cancel")]
-  public IActionResult CancelSimulation(
+  public async Task<IActionResult> CancelSimulation(
     [FromRoute] string id,
     [FromHeader(Name = "x-user-id")] string userId
   )
   {
-    var simulationId = _simulationService.Cancel(Guid.Parse(id), userId);
+    var simulationId = await _simulationService.Cancel(Guid.Parse(id), userId);
     return Accepted($"/simulations/{simulationId}");
   }
 
   [HttpPatch]
   [Route("{id}/propose")]
-  public IActionResult ProposeSimulation(
+  public async Task<IActionResult> ProposeSimulation(
     [FromRoute] string id,
     [FromHeader(Name = "x-user-id")] string userId
   )
   {
-    var simulationId = _simulationService.Propose(Guid.Parse(id), userId);
+    var simulationId = await _simulationService.Propose(Guid.Parse(id), userId);
     return Accepted($"/simulations/{simulationId}");
   }
 
   [HttpPatch]
   [Route("{id}/accept")]
-  public IActionResult AcceptSimulation(
+  public async Task<IActionResult> AcceptSimulation(
     [FromRoute] string id,
     [FromHeader(Name = "x-user-id")] string userId
   )
   {
-    var simulationId = _simulationService.Finish(Guid.Parse(id), userId);
+    var simulationId = await _simulationService.Finish(Guid.Parse(id), userId);
     return Accepted($"/simulations/{simulationId}");
   }
 

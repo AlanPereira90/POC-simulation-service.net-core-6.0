@@ -13,9 +13,9 @@ public class SimulationService : ISimulationService
     _repository = repository;
   }
 
-  private Simulation GetSimulation(Guid id, string userId)
+  private async Task<Simulation> GetSimulation(Guid id, string userId)
   {
-    var simulation = _repository.Find(id, userId);
+    var simulation = await _repository.Find(id, userId);
     if (simulation == null)
     {
       throw new ApplicationException("Simulation not found");
@@ -23,14 +23,14 @@ public class SimulationService : ISimulationService
     return simulation;
   }
 
-  public string Create(SimulationDTO simulation)
+  public Task<string> Create(SimulationDTO simulation)
   {
     return _repository.Persist(simulation.ToDomain());
   }
 
-  public string Cancel(Guid Id, string UserId)
+  public async Task<string> Cancel(Guid Id, string UserId)
   {
-    Simulation simulation = this.GetSimulation(Id, UserId);
+    Simulation simulation = await this.GetSimulation(Id, UserId);
 
     if (!simulation.IsCreated())
     {
@@ -38,12 +38,12 @@ public class SimulationService : ISimulationService
     }
 
     simulation.Cancel("CANCELLED_BY_USER");
-    return _repository.Persist(simulation);
+    return await _repository.Persist(simulation);
   }
 
-  public string Propose(Guid Id, string UserId)
+  public async Task<string> Propose(Guid Id, string UserId)
   {
-    Simulation simulation = this.GetSimulation(Id, UserId);
+    Simulation simulation = await this.GetSimulation(Id, UserId);
 
     if (!simulation.IsCreated())
     {
@@ -51,12 +51,12 @@ public class SimulationService : ISimulationService
     }
 
     simulation.Propose();
-    return _repository.Persist(simulation);
+    return await _repository.Persist(simulation);
   }
 
-  public string Finish(Guid Id, string UserId)
+  public async Task<string> Finish(Guid Id, string UserId)
   {
-    Simulation simulation = this.GetSimulation(Id, UserId);
+    Simulation simulation = await this.GetSimulation(Id, UserId);
 
     if (!simulation.IsProposed())
     {
@@ -64,11 +64,11 @@ public class SimulationService : ISimulationService
     }
 
     simulation.Finish();
-    return _repository.Persist(simulation);
+    return await _repository.Persist(simulation);
   }
 
-  public SimulationDTO Retrieve(Guid Id, string UserId)
+  public async Task<SimulationDTO> Retrieve(Guid Id, string UserId)
   {
-    return SimulationDTO.FromDomain(this.GetSimulation(Id, UserId));
+    return SimulationDTO.FromDomain(await this.GetSimulation(Id, UserId));
   }
 }

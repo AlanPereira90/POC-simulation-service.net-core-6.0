@@ -4,10 +4,10 @@ namespace src.domain.simulation.interfaces;
 
 public interface ISimulationService
 {
-  string Create(SimulationDTO simulation);
-  string Cancel(Guid Id, string UserId);
-  string Propose(Guid Id, string UserId);
-  string Finish(Guid Id, string UserId);
-  SimulationDTO Retrieve(Guid Id, string UserId);
+  Task<string> Create(SimulationDTO simulation);
+  Task<string> Cancel(Guid Id, string UserId);
+  Task<string> Propose(Guid Id, string UserId);
+  Task<string> Finish(Guid Id, string UserId);
+  Task<SimulationDTO> Retrieve(Guid Id, string UserId);
 
 }
