@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ISimulationRepository, SimulationRepository>();
 builder.Services.AddScoped<ISimulationService, SimulationService>();
 builder.Services.AddScoped<IDatabase, DatabaseService>();
-builder.Services.AddSingleton<DyanamoDB>();
+builder.Services.AddSingleton<DynamoDB>();
 
 var app = builder.Build();
 

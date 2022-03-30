@@ -2,7 +2,7 @@ using Amazon.DynamoDBv2.Model;
 
 namespace src.domain.infra;
 
-public static class DyanamoDBMapper
+public static class DynamoDBMapper
 {
   private static AttributeValue BuildAttributeValue(KeyValuePair<string, object> item)
   {
@@ -12,7 +12,7 @@ public static class DyanamoDBMapper
     switch (type.Name)
     {
       case "String":
-        value = new AttributeValue { S = (string)item.Value };
+        value = new AttributeValue { S = item.Value.ToString() };
         break;
       case "Int32":
       case "Double":
@@ -21,7 +21,7 @@ public static class DyanamoDBMapper
       case "Boolean":
         value = new AttributeValue { BOOL = (bool)item.Value };
         break;
-      case "Dictionary":
+      case "Dictionary`2":
         value = new AttributeValue { M = Marshall((Dictionary<string, object>)item.Value) };
         break;
       default:
@@ -31,12 +31,12 @@ public static class DyanamoDBMapper
     return value;
   }
 
-  public static object UnbuildAttributeValue(AttributeValue value)
+  private static object UnbuildAttributeValue(AttributeValue value)
   {
     if (value.S != null) return value.S;
-    if (value.B != null) return value.B;
+    if (value.IsBOOLSet) return value.BOOL;
     if (value.N != null) return value.N;
-    if (value.M != null) return Unmarshall(value.M);
+    if (value.M.Count > 0) return Unmarshall(value.M);
 
     throw new Exception($"Value {value} not supported");
   }

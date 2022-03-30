@@ -2,6 +2,11 @@ namespace src.domain.simulation.types
 {
   public class Costs
   {
+    public Costs()
+    {
+
+    }
+
     public Costs(double monthly, double annual)
     {
       this.Monthly = monthly;

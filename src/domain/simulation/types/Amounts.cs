@@ -2,6 +2,11 @@ namespace src.domain.simulation.types;
 
 public class Amounts
 {
+  public Amounts()
+  {
+
+  }
+
   public Amounts(double bankSlip, double iof, double installment, double insurance, double creditOpeningFee, double hiring, double owed)
   {
     this.BankSlip = bankSlip;

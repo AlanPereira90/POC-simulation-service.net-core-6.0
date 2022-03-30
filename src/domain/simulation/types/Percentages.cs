@@ -2,6 +2,11 @@ namespace src.domain.simulation.types;
 
 public class Percentages
 {
+  public Percentages()
+  {
+
+  }
+
   public Percentages(Costs totalEffectiveCosts, Costs interests, double taxRate)
   {
     this.TotalEffectiveCosts = totalEffectiveCosts;
