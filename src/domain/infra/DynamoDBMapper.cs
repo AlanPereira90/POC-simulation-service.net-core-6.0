@@ -35,7 +35,7 @@ public static class DynamoDBMapper
   {
     if (value.S != null) return value.S;
     if (value.IsBOOLSet) return value.BOOL;
-    if (value.N != null) return value.N;
+    if (value.N != null) return Double.Parse(value.N);
     if (value.M.Count > 0) return Unmarshall(value.M);
 
     throw new Exception($"Value {value} not supported");

@@ -1,30 +1,35 @@
 using Xunit;
 using System;
 using System.Collections.Generic;
+using KellermanSoftware.CompareNetObjects;
 
 using Amazon.DynamoDBv2.Model;
 
 using src.domain.infra;
 using src.domain.simulation.enums;
 
+
 namespace test.unit.domain.infra;
 
 public class DynamoDBMapperTest
 {
+  private CompareLogic compareLogic;
   private Dictionary<string, object> randomObject;
   private Dictionary<string, AttributeValue> marshalledObject;
 
   public DynamoDBMapperTest()
   {
+    compareLogic = new CompareLogic();
+
     randomObject = new Dictionary<string, object>
     {
       { "key1", "value1" },
-      { "key2", 2 },
+      { "key2", (double)2 },
       { "key3", true },
       { "key4", new Dictionary<string, object>
         {
           { "key4-1", "value4-1" },
-          { "key4-2", 2 },
+          { "key4-2", (double)2 },
           { "key4-3", true }
         }
       }
@@ -50,7 +55,7 @@ public class DynamoDBMapperTest
   {
     var result = DynamoDBMapper.Marshall(randomObject);
 
-    Assert.Equal(result.ToString(), marshalledObject.ToString());
+    Assert.True(compareLogic.Compare(result, marshalledObject).AreEqual);
   }
 
   [Fact(DisplayName = "Should fail with an unexpected type on object")]
@@ -72,7 +77,7 @@ public class DynamoDBMapperTest
   {
     var result = DynamoDBMapper.Unmarshall(marshalledObject);
 
-    Assert.Equal(result.ToString(), randomObject.ToString());
+    Assert.True(compareLogic.Compare(result, randomObject).AreEqual);
   }
 
   [Fact(DisplayName = "Should fail with an unexpected type on marshalled object")]
