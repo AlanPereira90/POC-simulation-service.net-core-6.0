@@ -41,6 +41,7 @@ public class DatabaseService : IDatabase
       tableName: _configuration["DynamoDB:TableName"],
       key: key
     );
+
     return DynamoDBMapper.Unmarshall(result.Item);
   }
 }
