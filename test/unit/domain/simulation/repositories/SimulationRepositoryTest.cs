@@ -9,7 +9,7 @@ using src.domain.simulation.repositories;
 using src.domain.common.interfaces;
 using src.domain.simulation.helpers;
 
-using test.unit.domain.simulation.helpers;
+using test.unit.domain.simulation.builders;
 
 
 namespace test.unit.domain.simulation.repositories;
