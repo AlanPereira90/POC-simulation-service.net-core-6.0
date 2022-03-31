@@ -21,10 +21,6 @@ public class HttpResponseExceptionFilter : IActionFilter, IOrderedFilter
         StatusCode = httpResponseException.StatusCode
       };
 
-      System.Console.Write($"\n\n\n\n" +
-        $"{context.Result}\n " +
-        $"{context.Result}\n\n\n\n");
-
       context.ExceptionHandled = true;
     }
   }
