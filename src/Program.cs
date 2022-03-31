@@ -4,12 +4,15 @@ using src.domain.common.interfaces;
 using src.domain.simulation.services;
 using src.domain.simulation.repositories;
 using src.domain.infrastructure.database;
-using src.domain.simulation.entities;
 using src.domain.infra;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers((option) =>
+{
+  option.Filters.Add(new HttpResponseExceptionFilter());
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

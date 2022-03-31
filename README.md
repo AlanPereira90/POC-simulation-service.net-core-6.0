@@ -16,3 +16,5 @@ aws dynamodb scan --table-name Simulation --endpoint-url http://localhost:8000/
 aws dynamodb scan --table-name Simulation --select "COUNT" --endpoint-url http://localhost:8000/
 
 aws dynamodb delete-table --table-name Simulation --endpoint-url http://localhost:8000/
+
+https://docs.microsoft.com/pt-br/aspnet/core/web-api/handle-errors?view=aspnetcore-6.0

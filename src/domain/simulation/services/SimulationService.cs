@@ -1,3 +1,5 @@
+using System.Net;
+
 using src.domain.simulation.interfaces;
 using src.domain.simulation.dtos;
 using src.domain.simulation.entities;
@@ -18,7 +20,10 @@ public class SimulationService : ISimulationService
     var simulation = await _repository.Find(id, userId);
     if (simulation == null)
     {
-      throw new ApplicationException("Simulation not found");
+      throw new HttpResponseException(
+        message: "Simulation not found",
+        statusCode: HttpStatusCode.NotFound
+      );
     }
     return simulation;
   }
@@ -34,7 +39,7 @@ public class SimulationService : ISimulationService
 
     if (!simulation.IsCreated())
     {
-      throw new ApplicationException($"Invalid simulation status: {simulation.Status}");
+      throw new HttpResponseException(HttpStatusCode.Conflict, $"Invalid simulation status: {simulation.Status}");
     }
 
     simulation.Cancel("CANCELLED_BY_USER");
@@ -47,7 +52,7 @@ public class SimulationService : ISimulationService
 
     if (!simulation.IsCreated())
     {
-      throw new ApplicationException($"Invalid simulation status: {simulation.Status}");
+      throw new HttpResponseException(HttpStatusCode.Conflict, $"Invalid simulation status: {simulation.Status}");
     }
 
     simulation.Propose();
@@ -60,7 +65,7 @@ public class SimulationService : ISimulationService
 
     if (!simulation.IsProposed())
     {
-      throw new ApplicationException($"Invalid simulation status: {simulation.Status}");
+      throw new HttpResponseException(HttpStatusCode.Conflict, $"Invalid simulation status: {simulation.Status}");
     }
 
     simulation.Finish();

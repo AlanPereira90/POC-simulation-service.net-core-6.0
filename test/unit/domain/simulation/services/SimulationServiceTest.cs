@@ -77,7 +77,7 @@ public class SimulationServiceTest
 
     SimulationService service = new SimulationService(_mockRepository.Object);
 
-    var error = await Assert.ThrowsAsync<ApplicationException>(() => service.Cancel(id, userId));
+    var error = await Assert.ThrowsAsync<HttpResponseException>(() => service.Cancel(id, userId));
     Assert.Equal("Simulation not found", error.Message);
     _mockRepository.Verify(r =>
       r.Find(id, userId), Times.Once
@@ -99,7 +99,7 @@ public class SimulationServiceTest
 
     SimulationService service = new SimulationService(_mockRepository.Object);
 
-    var error = await Assert.ThrowsAsync<ApplicationException>(() => service.Cancel(simulation.Id, simulation.UserId));
+    var error = await Assert.ThrowsAsync<HttpResponseException>(() => service.Cancel(simulation.Id, simulation.UserId));
     Assert.Equal($"Invalid simulation status: {SimulationStatus.CANCELLED}", error.Message);
     _mockRepository.Verify(r =>
       r.Find(simulation.Id, simulation.UserId), Times.Once
@@ -144,7 +144,7 @@ public class SimulationServiceTest
 
     SimulationService service = new SimulationService(_mockRepository.Object);
 
-    var error = await Assert.ThrowsAsync<ApplicationException>(() => service.Propose(id, userId));
+    var error = await Assert.ThrowsAsync<HttpResponseException>(() => service.Propose(id, userId));
     Assert.Equal("Simulation not found", error.Message);
     _mockRepository.Verify(r =>
       r.Find(id, userId), Times.Once
@@ -166,7 +166,7 @@ public class SimulationServiceTest
 
     SimulationService service = new SimulationService(_mockRepository.Object);
 
-    var error = await Assert.ThrowsAsync<ApplicationException>(() => service.Propose(simulation.Id, simulation.UserId));
+    var error = await Assert.ThrowsAsync<HttpResponseException>(() => service.Propose(simulation.Id, simulation.UserId));
     Assert.Equal($"Invalid simulation status: {SimulationStatus.CANCELLED}", error.Message);
     _mockRepository.Verify(r =>
       r.Find(simulation.Id, simulation.UserId), Times.Once
@@ -212,7 +212,7 @@ public class SimulationServiceTest
 
     SimulationService service = new SimulationService(_mockRepository.Object);
 
-    var error = await Assert.ThrowsAsync<ApplicationException>(() => service.Finish(id, userId));
+    var error = await Assert.ThrowsAsync<HttpResponseException>(() => service.Finish(id, userId));
     Assert.Equal("Simulation not found", error.Message);
     _mockRepository.Verify(r =>
       r.Find(id, userId), Times.Once
@@ -234,7 +234,7 @@ public class SimulationServiceTest
 
     SimulationService service = new SimulationService(_mockRepository.Object);
 
-    var error = await Assert.ThrowsAsync<ApplicationException>(() => service.Finish(simulation.Id, simulation.UserId));
+    var error = await Assert.ThrowsAsync<HttpResponseException>(() => service.Finish(simulation.Id, simulation.UserId));
     Assert.Equal($"Invalid simulation status: {SimulationStatus.CANCELLED}", error.Message);
     _mockRepository.Verify(r =>
       r.Find(simulation.Id, simulation.UserId), Times.Once
@@ -273,7 +273,7 @@ public class SimulationServiceTest
 
     SimulationService service = new SimulationService(_mockRepository.Object);
 
-    var error = await Assert.ThrowsAsync<ApplicationException>(() => service.Retrieve(id, userId));
+    var error = await Assert.ThrowsAsync<HttpResponseException>(() => service.Retrieve(id, userId));
     Assert.Equal("Simulation not found", error.Message);
     _mockRepository.Verify(r =>
       r.Find(id, userId), Times.Once

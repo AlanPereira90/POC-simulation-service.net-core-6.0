@@ -24,12 +24,12 @@ public class DynamoDBMapperTest
     randomObject = new Dictionary<string, object>
     {
       { "key1", "value1" },
-      { "key2", (double)2 },
+      { "key2", 2 },
       { "key3", true },
       { "key4", new Dictionary<string, object>
         {
           { "key4-1", "value4-1" },
-          { "key4-2", (double)2 },
+          { "key4-2", 2 },
           { "key4-3", true }
         }
       }

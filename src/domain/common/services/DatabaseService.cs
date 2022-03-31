@@ -42,6 +42,6 @@ public class DatabaseService : IDatabase
       key: key
     );
 
-    return DynamoDBMapper.Unmarshall(result.Item);
+    return result.IsItemSet ? DynamoDBMapper.Unmarshall(result.Item) : null;
   }
 }

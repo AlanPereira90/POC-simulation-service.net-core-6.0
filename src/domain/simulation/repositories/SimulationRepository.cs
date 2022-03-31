@@ -23,6 +23,8 @@ public class SimulationRepository : ISimulationRepository
 
   public async Task<Simulation> Find(Guid id, string UserId)
   {
-    return SimulationDataMapper.FromData(await _database.Find(id.ToString(), UserId));
+    var data = await _database.Find(id.ToString(), UserId);
+
+    return (data != null) ? SimulationDataMapper.FromData(data) : null;
   }
 }
