@@ -1,6 +1,6 @@
 using Xunit;
 
-using test.unit.domain.simulation.builders;
+using test.builders;
 using src.domain.simulation.helpers;
 
 namespace test.unit.domain.simulation.helpers;

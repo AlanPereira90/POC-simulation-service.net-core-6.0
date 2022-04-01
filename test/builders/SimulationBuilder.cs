@@ -3,7 +3,7 @@ using Faker;
 using src.domain.simulation.entities;
 using src.domain.simulation.types;
 
-namespace test.unit.domain.simulation.builders;
+namespace test.builders;
 
 public static class SimulationBuilder
 {

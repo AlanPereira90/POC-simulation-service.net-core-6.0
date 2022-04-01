@@ -9,7 +9,7 @@ using src.domain.simulation.entities;
 using src.domain.simulation.services;
 using src.domain.simulation.enums;
 using src.domain.simulation.dtos;
-using test.unit.domain.simulation.builders;
+using test.builders;
 
 namespace test.unit.domain.simulation.services;
 

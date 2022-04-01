@@ -4,7 +4,7 @@ using Faker;
 using src.domain.simulation.dtos;
 using src.domain.simulation.types;
 
-namespace test.unit.domain.simulation.builders;
+namespace test.builders;
 
 public class SimulationDTOBuilder
 {
