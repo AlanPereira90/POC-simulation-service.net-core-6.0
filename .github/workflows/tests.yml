@@ -19,4 +19,4 @@ jobs:
       - name: Build
         run: cd src && dotnet build --configuration Release --no-restore && cd ..
       - name: Test
-        run: cd src $$ dotnet test --no-restore --verbosity normal && cd ..
+        run: cd src && dotnet test --no-restore --verbosity normal && cd ..
