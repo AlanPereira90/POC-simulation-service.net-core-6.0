@@ -1,5 +1,6 @@
 using Xunit;
 using Moq;
+using Faker;
 
 using System;
 using System.Net;
@@ -23,6 +24,7 @@ public class CreateSimulationIntegrationTest
   {
     var request = CreateSimulationRequestBuilder.Build();
     var simulationId = Guid.NewGuid().ToString();
+    var userId = StringFaker.AlphaNumeric(10);
     var expectedLocation = $"/simulations/{simulationId}";
 
     _testClient.MockDatabase.Setup(x => x.Persist(
@@ -31,9 +33,43 @@ public class CreateSimulationIntegrationTest
       It.IsAny<Dictionary<string, object>>()
     )).Returns(Task.FromResult(simulationId));
 
-    var response = await _testClient.Post(route: "/simulations", payload: request);
+    var headers = new Dictionary<string, string>
+    {
+        { "x-user-id", userId }
+    };
+
+    var response = await _testClient.Post("/simulations", headers, request);
 
     Assert.Equal(HttpStatusCode.Accepted, response.StatusCode);
     Assert.Equal(expectedLocation, response.Headers.Location!.ToString());
+  }
+
+  [Fact(DisplayName = "should return 400 BAD REQUEST with an invalid payload")]
+  public async void CreateSimulationInvalidPayload()
+  {
+    var request = new
+    {
+      foo = "bar"
+    };
+    var userId = StringFaker.AlphaNumeric(10);
+
+    var headers = new Dictionary<string, string>
+    {
+        { "x-user-id", userId }
+    };
+
+    var response = await _testClient.Post("/simulations", headers, request);
+
+    Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+  }
+
+  [Fact(DisplayName = "should return 400 BAD REQUEST without an user id on headers")]
+  public async void CreateSimulationInvalidHeaders()
+  {
+    var request = CreateSimulationRequestBuilder.Build();
+
+    var response = await _testClient.Post("/simulations", payload: request);
+
+    Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
   }
 }

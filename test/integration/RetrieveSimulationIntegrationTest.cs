@@ -1,5 +1,4 @@
 using Xunit;
-using Moq;
 using Faker;
 using KellermanSoftware.CompareNetObjects;
 using Newtonsoft.Json;
@@ -69,5 +68,15 @@ public class RetrieveSimulationIntegrationTest
     var responseBody = JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
 
     Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+  }
+
+  [Fact(DisplayName = "should return 400 BAD REQUEST without an user id on headers")]
+  public async void RetrieveSimulationBadRequest()
+  {
+    var simulatioId = Guid.NewGuid().ToString();
+
+    var response = await _testClient.Get($"/simulations/{simulatioId}");
+
+    Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
   }
 }

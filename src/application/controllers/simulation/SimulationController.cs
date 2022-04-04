@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+
+using System.ComponentModel.DataAnnotations;
+
 using src.domain.simulation.interfaces;
 using src.domain.simulation.dtos;
 using src.application.controllers.simulation.requests;
@@ -21,7 +24,7 @@ public class SimulationController : ControllerBase
   [HttpPost]
   public async Task<IActionResult> CreateSimulation(
     [FromBody] CreateSimulationRequest request,
-    [FromHeader(Name = "x-user-id")] string userId
+    [FromHeader(Name = "x-user-id")][Required] string userId
   )
   {
     var dto = SimulationDTO.FromApplication(request, userId);
@@ -33,7 +36,7 @@ public class SimulationController : ControllerBase
   [Route("{id}")]
   public async Task<IActionResult> GetSimulation(
     [FromRoute] string id,
-    [FromHeader(Name = "x-user-id")] string userId
+    [FromHeader(Name = "x-user-id")][Required] string userId
   )
   {
     var simulation = await _simulationService.Retrieve(Guid.Parse(id), userId);
@@ -44,7 +47,7 @@ public class SimulationController : ControllerBase
   [Route("{id}/cancel")]
   public async Task<IActionResult> CancelSimulation(
     [FromRoute] string id,
-    [FromHeader(Name = "x-user-id")] string userId
+    [FromHeader(Name = "x-user-id")][Required] string userId
   )
   {
     var simulationId = await _simulationService.Cancel(Guid.Parse(id), userId);
@@ -55,7 +58,7 @@ public class SimulationController : ControllerBase
   [Route("{id}/propose")]
   public async Task<IActionResult> ProposeSimulation(
     [FromRoute] string id,
-    [FromHeader(Name = "x-user-id")] string userId
+    [FromHeader(Name = "x-user-id")][Required] string userId
   )
   {
     var simulationId = await _simulationService.Propose(Guid.Parse(id), userId);
@@ -66,7 +69,7 @@ public class SimulationController : ControllerBase
   [Route("{id}/accept")]
   public async Task<IActionResult> AcceptSimulation(
     [FromRoute] string id,
-    [FromHeader(Name = "x-user-id")] string userId
+    [FromHeader(Name = "x-user-id")][Required] string userId
   )
   {
     var simulationId = await _simulationService.Finish(Guid.Parse(id), userId);

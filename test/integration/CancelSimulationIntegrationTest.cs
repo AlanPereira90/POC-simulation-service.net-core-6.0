@@ -90,4 +90,14 @@ public class CancelSimulationIntegrationTest
 
     Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
   }
+
+  [Fact(DisplayName = "should return 400 BAD REQUEST without an user id on headers")]
+  public async void CancelSimulationBadRequest()
+  {
+    var simulatioId = Guid.NewGuid().ToString();
+
+    var response = await _testClient.Patch($"/simulations/{simulatioId}/cancel");
+
+    Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+  }
 }

@@ -21,7 +21,7 @@ public class ProposeSimulationIntegrationTest
   }
 
   [Fact(DisplayName = "should return 202 ACCEPTED when simulation is proposed")]
-  public async void CancelSimulationSuccess()
+  public async void ProposeSimulationSuccess()
   {
     var simulation = SimulationBuilder.build();
     var simulationData = SimulationDataMapper.ToData(simulation);
@@ -51,7 +51,7 @@ public class ProposeSimulationIntegrationTest
   }
 
   [Fact(DisplayName = "should return 404 NOT_FOUND when simulation not found")]
-  public async void CancelSimulationNotFound()
+  public async void ProposeSimulationNotFound()
   {
     var id = Guid.NewGuid().ToString();
     var userId = StringFaker.AlphaNumeric(10);
@@ -67,7 +67,7 @@ public class ProposeSimulationIntegrationTest
   }
 
   [Fact(DisplayName = "should return 409 CONFLICT when simulation with invalid status")]
-  public async void CancelSimulationConflict()
+  public async void ProposeSimulationConflict()
   {
     var simulation = SimulationBuilder.build();
     simulation.Cancel(TextFaker.Sentence());
@@ -89,5 +89,15 @@ public class ProposeSimulationIntegrationTest
     var response = await _testClient.Patch($"/simulations/{simulation.Id}/propose", headers);
 
     Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
+  }
+
+  [Fact(DisplayName = "should return 400 BAD REQUEST without an user id on headers")]
+  public async void ProposeSimulationBadRequest()
+  {
+    var simulatioId = Guid.NewGuid().ToString();
+
+    var response = await _testClient.Patch($"/simulations/{simulatioId}/propose");
+
+    Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
   }
 }

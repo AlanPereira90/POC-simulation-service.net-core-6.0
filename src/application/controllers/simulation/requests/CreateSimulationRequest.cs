@@ -1,40 +1,40 @@
-using src.domain.simulation.types;
+using System.ComponentModel.DataAnnotations;
 
 namespace src.application.controllers.simulation.requests;
 
 public class CreateSimulationRequest
 {
-  public double Amount { get; set; }
-  public PlanRequest Plan { get; set; }
+  [Required] public double Amount { get; set; }
+  [Required] public PlanRequest Plan { get; set; }
 }
 
 public class PlanRequest
 {
-  public int Installment { get; set; }
-  public PercentagesRequest Percentages { get; set; }
-  public AmountsRequest Amounts { get; set; }
+  [Required] public int Installment { get; set; }
+  [Required] public PercentagesRequest Percentages { get; set; }
+  [Required] public AmountsRequest Amounts { get; set; }
 }
 
 public class CostsRequest
 {
-  public double Monthly { get; set; }
-  public double Annual { get; set; }
+  [Required] public double Monthly { get; set; }
+  [Required] public double Annual { get; set; }
 }
 
 public class PercentagesRequest
 {
-  public CostsRequest TotalEffectiveCosts { get; set; }
-  public CostsRequest Interests { get; set; }
-  public double TaxRate { get; set; }
+  [Required] public CostsRequest TotalEffectiveCosts { get; set; }
+  [Required] public CostsRequest Interests { get; set; }
+  [Required] public double TaxRate { get; set; }
 }
 
 public class AmountsRequest
 {
-  public double BankSlip { get; set; }
-  public double Iof { get; set; }
-  public double Installment { get; set; }
-  public double Insurance { get; set; }
-  public double CreditOpeningFee { get; set; }
-  public double Hiring { get; set; }
-  public double Owed { get; set; }
+  [Required] public double BankSlip { get; set; }
+  [Required] public double Iof { get; set; }
+  [Required] public double Installment { get; set; }
+  [Required] public double Insurance { get; set; }
+  [Required] public double CreditOpeningFee { get; set; }
+  [Required] public double Hiring { get; set; }
+  [Required] public double Owed { get; set; }
 }

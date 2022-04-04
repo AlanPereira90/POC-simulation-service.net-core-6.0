@@ -4,7 +4,8 @@
 Simulation-service is a POC used to study DDD and TDD with ASP.NET core 6.0
 
 ### How to use in development environment?
-Run the command `make up` to up local dynamoDB (port 8000) and simulation-service (ports 5050 and 5051) containers.
+Run the command `make up` to up local dynamoDB (port 8000) and simulation-service (ports 5050 and 5051) containers. 
+With the containers up, the api documentation can be checked [here](http://127.0.0.1:5050/swagger/index.html)
 
 ### How to test?
 Run the command `make tdd` to run tests and keep watching the code changes, and `make test-run` to execute a single test execution.
