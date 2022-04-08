@@ -1,12 +1,11 @@
-on: [push]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build-test:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ['6.0.x' ]
+        dotnet-version: ["6.0.x"]
 
     steps:
       - uses: actions/checkout@v2
